@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const questionRoutes = require("./api/routes/question");
 // const userRoutes = require("./api/routes/user");
 
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 const app = express();
@@ -14,13 +14,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
-// mongoose
-//   .connect(process.env.MONGO_CONNECTION, { useNewUrlParser: true })
-//   .then(console.log("connected"))
-//   .catch((err) => {
-//     console.log("DB connection error:", err);
-//     console.log(err);
-//   });
+mongoose
+  .connect(process.env.MONGO_CONNECTION, { useNewUrlParser: true })
+  .then(console.log("connected"))
+  .catch((err) => {
+    console.log("DB connection error:", err);
+    console.log(err);
+  });
 
 app.use(questionRoutes);
 // app.use(userRoutes);
