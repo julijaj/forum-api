@@ -1,6 +1,5 @@
 const Question = require("../models/questionModel");
 
-
 module.exports.POST_QUESTION = async function (req, res) {
   try {
     console.log(req.body);
@@ -23,7 +22,13 @@ module.exports.POST_QUESTION = async function (req, res) {
 module.exports.GET_QUESTIONS = async function (req, res) {
   try {
     const result = await Question.find().sort("id").exec();
-    return res.status(200).json({ questions: result });
+    const modifiedResult = result.map((question) => {
+      return {
+        ...question.toObject(),
+        canDelete: true,
+      };
+    });
+    return res.status(200).json({ questions: modifiedResult });
   } catch (err) {
     console.log("err", err);
     res.status(500).json({ response: "Failed" });
