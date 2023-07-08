@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const questionRoutes = require("./api/routes/question");
+const answerRoutes = require("./api/routes/answer");
 // const userRoutes = require("./api/routes/user");
 
 const mongoose = require("mongoose");
@@ -23,6 +24,7 @@ mongoose
   });
 
 app.use(questionRoutes);
+app.use(answerRoutes);
 // app.use(userRoutes);
 
 app.use((req, res, next) => {
