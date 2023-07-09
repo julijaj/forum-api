@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const questionRoutes = require("./api/routes/question");
 const answerRoutes = require("./api/routes/answer");
-// const userRoutes = require("./api/routes/user");
+const userRoutes = require("./api/routes/user");
 
 const mongoose = require("mongoose");
 require("dotenv").config();
@@ -25,7 +25,7 @@ mongoose
 
 app.use(questionRoutes);
 app.use(answerRoutes);
-// app.use(userRoutes);
+app.use(userRoutes);
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");

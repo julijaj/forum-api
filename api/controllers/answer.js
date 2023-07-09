@@ -25,6 +25,7 @@ module.exports.POST_ANSWER = async function (req, res) {
     const answer = new Answer({
       question_id: req.params.question_id,
       content: req.body.content,
+      user_id: req.body.userId,
     });
     const result = await answer.save();
 
