@@ -2,6 +2,8 @@ const Answer = require("../models/answerModel");
 
 module.exports.GET_ANSWERS = async function (req, res) {
   try {
+    const userId = req.headers['user-id'];
+
     const result = await Answer.find({ question_id: req.params.question_id })
       .sort("id")
       .exec();
@@ -22,10 +24,12 @@ module.exports.POST_ANSWER = async function (req, res) {
   try {
     console.log(req.body);
 
+    const userId = req.headers['user-id'];
+
     const answer = new Answer({
       question_id: req.params.question_id,
       content: req.body.content,
-      user_id: req.body.userId,
+      user_id: userId,
     });
     const result = await answer.save();
 

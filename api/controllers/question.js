@@ -4,9 +4,11 @@ module.exports.POST_QUESTION = async function (req, res) {
   try {
     console.log(req.body);
 
+    const userId = req.headers['user-id'];
+
     const question = new Question({
       content: req.body.content,
-      user_id: req.body.userId,
+      user_id: userId,
     });
 
     const result = await question.save();
@@ -22,6 +24,8 @@ module.exports.POST_QUESTION = async function (req, res) {
 
 module.exports.GET_QUESTIONS = async function (req, res) {
   try {
+    const userId = req.headers['user-id'];
+
     const result = await Question.find().sort("id").exec();
     const modifiedResult = result.map((question) => {
       return {
