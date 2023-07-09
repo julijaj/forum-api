@@ -2,7 +2,7 @@ const Answer = require("../models/answerModel");
 
 module.exports.GET_ANSWERS = async function (req, res) {
   try {
-    const userId = req.headers['user-id'];
+    const userId = req.headers["user-id"];
 
     const result = await Answer.find({ question_id: req.params.question_id })
       .sort("id")
@@ -10,7 +10,7 @@ module.exports.GET_ANSWERS = async function (req, res) {
     const modifiedResult = result.map((question) => {
       return {
         ...question.toObject(),
-        canDelete: true,
+        canDelete: question.user_id === userId,
       };
     });
     return res.status(200).json({ answers: modifiedResult });
@@ -24,7 +24,7 @@ module.exports.POST_ANSWER = async function (req, res) {
   try {
     console.log(req.body);
 
-    const userId = req.headers['user-id'];
+    const userId = req.headers["user-id"];
 
     const answer = new Answer({
       question_id: req.params.question_id,
@@ -34,7 +34,7 @@ module.exports.POST_ANSWER = async function (req, res) {
     const result = await answer.save();
 
     return res.status(200).json({
-      event: result,
+      answer: result,
     });
   } catch (err) {
     console.log("err", err);

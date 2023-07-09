@@ -14,7 +14,7 @@ module.exports.POST_QUESTION = async function (req, res) {
     const result = await question.save();
 
     return res.status(200).json({
-      event: result,
+      question: result,
     });
   } catch (err) {
     console.log("err", err);
@@ -30,7 +30,7 @@ module.exports.GET_QUESTIONS = async function (req, res) {
     const modifiedResult = result.map((question) => {
       return {
         ...question.toObject(),
-        canDelete: true,
+        canDelete: question.user_id === userId,
       };
     });
     return res.status(200).json({ questions: modifiedResult });
